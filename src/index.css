@@ -69,12 +69,12 @@ li {
 }
 
 .avatar {
-  height: 50px;
-  border-radius: 25px;
+  height: 100px;
+
   margin: 10px;
 }
 
-.tweet {
+.question {
   width: 100%;
   max-width: 590px;
   padding: 10px;
@@ -85,43 +85,42 @@ li {
   cursor: pointer;
 }
 
-.tweet-info {
+.question-info {
   margin: 10px;
   display: flex;
   flex-direction: column;
-}
+}   
 
-/* Hacky but less typing in the video */
-.tweet-info > div > span:first-child {
+.question-info > div > span:first-child {
   font-weight: bold;
   margin-right: 5px;
 }
-.tweet-info > div > span:nth-child(2) {
+.question-info > div > span:nth-child(2) {
   color: #969696;
   font-size: 16px;
 }
-.tweet-info > div > div {
-  color: #969696;
+.question-info > div > p {
+  color: #636262;
   font-size: 15px;
 }
-.tweet-info > div > p {
-  font-size: 18px;
-  margin: 10px 0;
+.question-info > div > div {
+  margin: 15px 0px;
+  font-weight: bold;
 }
-.tweet-icons {
+.question-icons {
   display: flex;
   align-items: center;
 }
-.tweet-icons > span {
+.question-icons > span {
   color: #969696;
   margin: 0 15px 0 5px;
   font-size: 18px !important;
 }
-.tweet-icon {
+.question-icon {
   font-size: 27px;
   color: #697784;
 }
-.tweet-icon:hover {
+.question-icon:hover {
   color: #00b5d6;
   cursor: pointer;
 }
@@ -139,7 +138,16 @@ li {
   border: none;
 }
 
-.new-tweet {
+.new-question {
+  width: 100%;
+  max-width: 590px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form {
+  margin-top: 20px;
   width: 100%;
   max-width: 590px;
   margin: 0 auto;
@@ -155,9 +163,14 @@ li {
   height: 100px;
 }
 
-.tweet-length {
+.question-length {
   text-align: right;
   margin-top: 10px;
   font-size: 20px;
   color: #C3392A;
+}
+
+.question-nav {
+  width: 328px;
+  margin: 0px auto;
 }

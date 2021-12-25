@@ -4,28 +4,53 @@ import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
 import LoadingBar from 'react-redux-loading'
-import NewTweet from './NewTweet'
-import TweetPage from './TweetPage'
+import Login from './Login'
+import NewQuestion from './NewQuestion'
+import QuestionPage from './QuestionPage'
 import Nav from './Nav'
+import { showLoading, hideLoading } from 'react-redux-loading'
+import { PrivateRoute } from './PrivateRoute';
 
 class App extends Component {
+  constructor() {
+    super();
+    
+    this.logout = this.logout.bind(this);
+    this.refreshQuestions = this.refreshQuestions.bind(this);
+  }
+
   componentDidMount() {
     this.props.dispatch(handleInitialData())
   }
+
+  logout(e) {
+    e.preventDefault();
+
+    this.props.dispatch(showLoading());
+  }
+
+  refreshQuestions = (e) => {
+    e.preventDefault();
+
+    // access to e.target here
+    console.log(e.target.id);
+}
+
   render() {
-    return (
+    return (      
       <Router>
         <Fragment>
           <LoadingBar />
           <div className='container'>
-            <Nav />
-            {this.props.loading === true
-              ? null
-              : <div>
-                  <Route path='/chirper/' exact component={Dashboard} />
-                  <Route path='/chirper/tweet/:id' component={TweetPage} />
-                  <Route path='/chirper/new' component={NewTweet} />
-                </div>}
+            <Nav loggedInUser={this.props.loggedInUser} logout={this.logout} />
+                <div>
+                  <PrivateRoute exact path="/" component={Dashboard} 
+                                user={this.props.loggedInUser} />
+                  <PrivateRoute path='/question/:id' component={QuestionPage} user={this.props.loggedInUser} />
+                  <PrivateRoute path='/add' component={NewQuestion} user={this.props.loggedInUser} />
+                  <PrivateRoute path='/leader' component={NewQuestion} user={this.props.loggedInUser} />
+                  <Route path='/login' component={Login} />                  
+                </div>
           </div>
         </Fragment>
       </Router>
@@ -33,9 +58,18 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({ authedUser }) {
+function mapStateToProps ({ authedUser, users, questions }) {
+  let loggedInUser = "";
+
+  if (authedUser && users[authedUser]) {
+    loggedInUser = users[authedUser].name;
+  }
+
   return {
-    loading: authedUser === null
+    loading: authedUser === null,
+    loggedInUser,
+    questionIds: Object.keys(questions)
+      .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
   }
 }
 

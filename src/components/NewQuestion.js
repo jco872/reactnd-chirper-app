@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { handleAddTweet } from '../actions/tweets'
+import { handleAddQuestion } from '../actions/questions'
 import { Redirect } from 'react-router-dom'
 
 class NewTweet extends Component {
   state = {
     text: '',
-    toHome: false,
+    toHome: false, 
   }
   handleChange = (e) => {
     const text = e.target.value
@@ -21,7 +21,7 @@ class NewTweet extends Component {
     const { text } = this.state
     const { dispatch, id } = this.props
 
-    dispatch(handleAddTweet(text, id))
+    dispatch(handleAddQuestion(text, id))
 
     this.setState(() => ({
       text: '',
@@ -39,8 +39,8 @@ class NewTweet extends Component {
 
     return (
       <div>
-        <h3 className='center'>Compose new Tweet</h3>
-        <form className='new-tweet' onSubmit={this.handleSubmit}>
+        <h1 className='center'>Create New Question</h1>
+        <form className='new-question' onSubmit={this.handleSubmit}>
           <textarea
             placeholder="What's happening?"
             value={text}
@@ -49,7 +49,7 @@ class NewTweet extends Component {
             maxLength={280}
           />
           {tweetLeft <= 100 && (
-            <div className='tweet-length'>
+            <div className='question-length'>
               {tweetLeft}
             </div>
           )}
